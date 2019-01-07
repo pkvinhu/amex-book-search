@@ -1,0 +1,53 @@
+/* .logo {
+    position: fixed;
+    top: 50%;
+    bottom: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0.8;
+} */
+
+.flex {
+    display: flex;
+}
+
+.border-box {
+    border: 3px solid #567D9C;
+}
+
+.center-content {
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    align-content: center;
+}
+
+.color-theme {
+    color: #567D9C;
+}
+
+.icon-pad {
+    padding: 5px;
+}
+
+img {
+    object-fit: contain;
+}
+
+.margin-grid {
+    margin: 2%;
+}
+
+.margin-header {
+    margin: 5%;
+}
+
+.pad-general {
+    padding: 5%;
+}
+
+.space-btw {
+    justify-content: space-between;
+}

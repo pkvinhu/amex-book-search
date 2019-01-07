@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
-import { Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
+import Header from './Header';
+import SideNav from './SideNav';
+import ResultsGrid from './ResultsGrid';
 
 class App extends Component {
-    render (){
 
+    render() {
+        const { byTitle } = this.props;
         return (
             <div>
-                <Typography 
-                    variant='h1' 
-                    color='textPrimary'
-                    style={{ fontFamily: 'Georgia, serif'}}>
-                    boo<font color='blue'>KH</font>ook search engine
-                </Typography>
+                <Header />
+                <div className='border-box center-content'>
+                    <SideNav />
+                    <ResultsGrid />
+                </div>
             </div>
         )
     }
 }
 
-export default App;
+const mapStateToProps = ({ byTitle }) => {
+    return {
+        byTitle
+    }
+}
+
+export default connect(mapStateToProps)(App);

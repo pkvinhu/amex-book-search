@@ -13,5 +13,6 @@ booKHook will use integration of Open Library API, React/Redux in the Front-end,
 [ ] By Genre
 [ ] Card Grid Results
 [ ] Pagination
+[ ] Deploy to Heroku
 [ ] Xtra - Testing w/ Jest
 
