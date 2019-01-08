@@ -9,6 +9,10 @@
     opacity: 0.8;
 } */
 
+.content {
+    opacity: 1;
+}
+
 .flex {
     display: flex;
 }
@@ -36,6 +40,19 @@ img {
     object-fit: contain;
 }
 
+.landing {
+    background-image: url('https://techcrunch.com/wp-content/uploads/2016/10/gettyimages-548328327.jpg?w=730&crop=1');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: repeat;
+    overflow-wrap: break-word;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+    opacity: .8;
+  }
+
 .margin-grid {
     margin: 2%;
 }
@@ -45,7 +62,11 @@ img {
 }
 
 .pad-general {
-    padding: 5%;
+    padding: 5% 5% 0% 5%;
+}
+
+.pad-top {
+    padding-top: 2%;
 }
 
 .space-btw {

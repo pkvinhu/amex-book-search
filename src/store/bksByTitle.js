@@ -12,9 +12,9 @@ const getBooks = books => ({
 })
 
 // thunk creators
-export const _getBooksByTitle = input => async dispatch => {
-    input = input.includes(' ') ? input.replace(' ', '+') : input;
-    const response = await axios.get(`http://openlibrary.org/search.json?q=${input}`)
+export const _getBooksByTitle = (search, category) => async dispatch => {
+    search = search.includes(' ') ? search.replace(' ', '+') : search;
+    const response = await axios.get(`http://openlibrary.org/search.json?${category}=${search}`)
     console.log('From store: ', response.data.docs);
     const books = [...response.data.docs];
     const action = getBooks(books);

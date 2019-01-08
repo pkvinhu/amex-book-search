@@ -14,7 +14,7 @@ const styles = theme => ({
     },
     gridList: {
       width: 500,
-      height: 450,
+      height: 550,
       margin: '4px',
     },
 });
@@ -25,9 +25,9 @@ class ResultsGrid extends Component {
         const { byTitle } = this.props;
         const { classes } = this.props;
         return (
-        <div className='border-box center-content pad-general'>
+        <div className='center-content pad-general'>
             <GridList 
-                className={`border-box ${classes.grid}`}
+                className='center-content'
                 cols={4}>
                 {byTitle.map((each, idx) => {
                     console.log(each)
@@ -36,7 +36,7 @@ class ResultsGrid extends Component {
                                     <img src={`http://covers.openlibrary.org/b/id/${each.cover_i}-S.jpg`} />
                                     <GridListTileBar 
                                         title={each.title}
-                                        subtitle={`Written by ${each.author}`}/>
+                                        subtitle={each.author_name ? `Written by ${each.author_name[0]}` : null}/>
                                 </GridListTile>
                             )
                 })}

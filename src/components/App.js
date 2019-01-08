@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
 import SideNav from './SideNav';
 import ResultsGrid from './ResultsGrid';
+import LandingSection from './LandingSection';
 
 class App extends Component {
 
     render() {
         const { byTitle } = this.props;
         return (
-            <div>
+            <Fragment>
                 <Header />
-                <div className='border-box center-content'>
+                <div className={`center-content ${'landing'} pad-top`}>
                     <SideNav />
                     <ResultsGrid />
+                    { !byTitle.length &&
+                    <LandingSection />}
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }
