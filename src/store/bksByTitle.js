@@ -1,32 +1,36 @@
 import axios from 'axios';
 
-const initialState = [];
+const initialState = {
+    titles: [],
+    search: ''
+};
 
 // constants
 const GET_BOOKS = 'GET_BOOKS';
 
 // action creators
-const getBooks = books => ({
+const getBooks = (books, search) => ({
   type: GET_BOOKS,
-  books
+  books,
+  search
 })
 
 // thunk creators
 export const _getBooksByTitle = (search, category) => async dispatch => {
-    search = search.includes(' ') ? search.replace(' ', '+') : search;
     const response = await axios.get(`http://openlibrary.org/search.json?${category}=${search}`)
     console.log('From store: ', response.data.docs);
     const books = [...response.data.docs];
-    const action = getBooks(books);
+    const action = getBooks(books, search);
     dispatch(action);
 }
 
 const reducer = (state=initialState, action) => {
     switch(action.type){
         case GET_BOOKS:
-          return [
-            ...action.books
-          ]
+          return {
+            titles: [...action.books],
+            search: action.search
+          }
         default:
           return state;
     }

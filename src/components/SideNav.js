@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { TextField, Button, Paper, Icon } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
+import { TextField, Button, Paper, Icon, Select } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { _getBooksByTitle } from '../store/bksByTitle';
 
@@ -11,11 +12,14 @@ const styles = theme => ({
       margin: '0% 10% 0% 10%',
       backgroundColor: '#567D9C',
       display: 'flex',
-      justifyContent: 'flex-end'
+      justifyContent: 'center'
     },
     searchbar: {
         backgroundColor: 'white',
         width: 275,
+    },
+    select: {
+        height: 35
     }
 });
 
@@ -27,11 +31,13 @@ class SideNav extends Component {
 
     handleSubmit = (evt) => {
         evt.preventDefault();
-        const { _getBooksByTitle } = this.props;
-        const { search, category } = this.state;
-        console.log('Search: ', search)
-        console.log('Category: ', category)
-        _getBooksByTitle(search, category)
+        const { _getBooksByTitle, history } = this.props;
+        let { search, category } = this.state;
+        search = search.includes(' ') ? search.replace(' ', '+') : search;
+        console.log(search)
+        _getBooksByTitle(search, category).then(() => {
+            history.push(`/books/${search}/1`)
+        })
     }
 
     handleChange = (evt) => {
@@ -40,7 +46,7 @@ class SideNav extends Component {
 
     render (){
         const { handleChange, handleSubmit } = this;
-        const { classes } = this.props;
+        const { classes, history } = this.props;
         return (
             <Paper className={classes.toolbar}>
             <form onSubmit={handleSubmit}>
@@ -48,7 +54,10 @@ class SideNav extends Component {
                     className={classes.searchbar}
                     name='search'
                     onChange={handleChange} />
-                <select name='category' onChange={handleChange}>
+                <select 
+                    name='category' 
+                    className={classes.select}
+                    onChange={handleChange}>
                     <option value='q'>All</option>
                     <option value='title'>Title</option>
                     <option value='author'>Author</option>
@@ -64,10 +73,17 @@ SideNav.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state, { history }) => {
+console.log(history)
+return {
+    history
+}
+}
+
 const mapDispatchToProps = dispatch => {
     return {
         _getBooksByTitle: (search, category) => dispatch(_getBooksByTitle(search, category))
     }
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(SideNav));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(SideNav)));

@@ -1,25 +1,7 @@
 const express = require('express');
-// var cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 const path = require('path');
-
-// var whitelist = ['localhost:3000/', 'https://openlibrary.org/search.jsonp']
-// var corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
-
-// // access control allow origin
-// app.use(cors(corsOptions));
-
-// books router
-app.use('/api/books', require('./api').books);
 
 // Static Files
 app.use(express.static(path.resolve(__dirname, '../public')));
