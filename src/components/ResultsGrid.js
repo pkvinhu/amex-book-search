@@ -9,7 +9,9 @@ import { Typography,
          GridListTileBar,
          Icon } from '@material-ui/core';
 import { connect } from 'react-redux';
+import SingleBookView from './SingleBookView';
 
+// material-ui css-in-js styles
 const styles = theme => ({
     grid: {
       padding: '15%',
@@ -22,13 +24,20 @@ const styles = theme => ({
 });
 
 class ResultsGrid extends Component {
-    // handleClick = () => {
+    state = {
+        selected: null,
+        open: false
+    }
 
-    // }
+    // open function that determines whether or not a grid tile has been clicked to open the individual book modals
+    handleClickOpen = (index) => {
+        this.setState({ selected: index, open: true })
+    }
 
     render() {
-        const { books, search, idx } = this.props;
-        const { classes } = this.props;
+        const { books, search, idx, classes } = this.props;
+        const { selected } = this.state;
+        const { handleClickOpen } = this;
         
         // pagination
         const limit = 9;
@@ -37,26 +46,28 @@ class ResultsGrid extends Component {
 
         return (
         <div className='center-content pad-general'>
-        {books.length &&
-        <div>
-        <div className='paginate pad-general'>
-            <Button 
-                disabled={idx===1 ? true : false}
-                component={Link} 
-                to={`/books/${search}/${idx - 1}`}>
-                <Icon>arrow_left</Icon>
-            </Button>
-            <Button 
-                disabled={end >= books.length-1 ? true : false}
-                component={Link} 
-                to={`/books/${search}/${idx + 1}`}>
-                <Icon>arrow_right</Icon>
-            </Button>
-        </div>
-            <GridList 
-                className='center-content pad-general'
-                cols={4}>
-                {books.slice(start, end || books.length-1).map((each, i) => {
+            {books.length &&
+                <div>
+                    <div className='paginate pad-general'>
+                        <Button 
+                            disabled={idx === 1 ? true : false}
+                            component={Link} 
+                            to={`/books/${search}/${idx - 1}`}>
+                            <Icon>arrow_left</Icon>
+                        </Button>
+                        <Button 
+                            disabled={end >= books.length-1 ? true : false}
+                            component={Link} 
+                            to={`/books/${search}/${idx + 1}`}>
+                            <Icon>arrow_right</Icon>
+                        </Button>
+                    </div>
+                    <GridList 
+                        className='center-content pad-general'
+                        cols={4}>
+                        {books
+                            .slice(start, end || books.length-1)
+                            .map((each, i) => {
                             return (
                                 <GridListTile 
                                     className={classes.gridList} 
@@ -68,15 +79,17 @@ class ResultsGrid extends Component {
                                         subtitle={each.author_name ? 
                                             `Written by ${each.author_name[0]}` : 
                                             null}
-                                        onClick={handleClick}
+                                        index={i+(idx*limit)} 
+                                        onClick={()=>handleClickOpen(index)}
                                     />
                                 </GridListTile>
                             )
-                })}
-            </GridList>
+                        })}
+                    </GridList>
+                    <SingleBookView open={this.state.open} idx={selected} />
+                </div>
+                }
             </div>
-            }
-        </div>
         )
     }
 }
@@ -85,12 +98,11 @@ ResultsGrid.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ byTitle }, { idx }) => {
-    return {
-        books: byTitle.titles,
-        search: byTitle.search,
+const mapStateToProps = ({ booksFound }, { idx }) => ({
+        books: booksFound.titles,
+        search: booksFound.search,
         idx
-    }
-}
+})
 
+// wrap component in both redux-thunk mapping functions and material-ui withStyles
 export default connect(mapStateToProps)(withStyles(styles)(ResultsGrid));

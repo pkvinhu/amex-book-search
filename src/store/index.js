@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
-import byTitleReducer from './bksByTitle';
+import booksReducer from './bks';
 
 const reducer = combineReducers({
-    byTitle: byTitleReducer
+    booksFound: booksReducer
 })
 
 const store = createStore(reducer, applyMiddleware(thunk));
