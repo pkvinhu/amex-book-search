@@ -17,7 +17,7 @@ const getBooks = (books, search) => ({
 
 // thunk creators
 export const _getBooks = (search, category) => async dispatch => {
-    const response = await axios.get(`http://openlibrary.org/search.json?${category}=${search}`)
+    const response = await axios.get(`https://openlibrary.org/search.json?${category}=${search}`)
     const books = [...response.data.docs];
     const action = getBooks(books, search);
     dispatch(action);
