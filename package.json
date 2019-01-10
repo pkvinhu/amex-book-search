@@ -7,7 +7,7 @@
     "start": "node ./server/index.js",
     "start:dev": "npm run webpack -- --watch --mode=development & PORT=3000 nodemon --ignore './public/' ./server/index.js",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "heroku-postbuild": "webpack -p"  
+    "heroku-postbuild": "webpack -p"
   },
   "keywords": [],
   "author": "",
