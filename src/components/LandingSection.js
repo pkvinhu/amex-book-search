@@ -15,7 +15,7 @@ class LandingSection extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className='center-content pad-general margin-header content'>
+            <div className='center-content pad-general margin-header content pad-left pad-right'>
                 <Typography 
                     variant='h3' 
                     color='textPrimary'

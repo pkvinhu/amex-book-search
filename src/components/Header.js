@@ -5,9 +5,10 @@ class Header extends Component {
 
     render (){
         return (
-            <div className='flex margin-header pad-general space-btw'>
+            <div className='flex margin-header pad-general space-btw pad-left pad-right'>
                 <Paper className='center-content border-box icon-pad'>
-                <Icon>local_library</Icon><Icon>hourglass_full</Icon>
+                <Icon className='color-theme'>local_library</Icon>
+                <Icon className='color-theme'>hourglass_full</Icon>
                 <Typography 
                     variant='subtitle1' 
                     color='textPrimary'

@@ -11,7 +11,7 @@ class App extends Component {
 
     render() {
         // checking books array length to see if a search has already been made - display landing section otherwise
-        const { books } = this.props;
+        const { books, search } = this.props;
         
         // renders component with the url params idx and history prop for pagination
         const renderBooksByPage = ({ match, history }) => {
@@ -23,14 +23,16 @@ class App extends Component {
             <Router>
                 <Fragment>
                     <Header />
-                    <div className='center-content landing pad-general pad-bottom'>
+                    <div className='wrap'>
+                    <div className='center-content landing pad-general'>
                         <SearchBar history={history}/>
-                        {!books.length &&
+                        {!books.length && !search &&
                         <LandingSection />}
                         <Route
                             exact path="/books/:book?/:index?"
                             render={renderBooksByPage}
                         />
+                    </div>
                     </div>
                 </Fragment>
             </Router>
@@ -39,7 +41,8 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ booksFound }) => ({
-        books: booksFound.titles
+        books: booksFound.titles,
+        search: booksFound.search
 })
 
 export default connect(mapStateToProps)(App);

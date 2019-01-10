@@ -15,7 +15,7 @@ import SingleBookView from './SingleBookView';
 // material-ui css-in-js styles
 const styles = theme => ({
     grid: {
-      padding: '15%',
+      padding: '5%',
     },
     gridList: {
       width: 500,
@@ -50,22 +50,35 @@ class ResultsGrid extends Component {
         const end = limit * idx;
 
         return (
-        <div className='center-content pad-general'>
+        <div className='center-content'>
             {books.length &&
                 <div>
-                    <div className='paginate pad-general'>
+                    {search && 
+                    (<div>
+                        <Typography
+                            variant='h3'
+                            align='center'>
+                            {books.length} Results Found
+                        </Typography>
+                    </div>)}
+                    <div className='paginate pad-grid'>
                         <Button 
-                            disabled={idx === 1 ? true : false}
                             component={Link} 
-                            to={`/books/${search}/${idx - 1}`}>
-                            <Icon>arrow_left</Icon>
-                        </Button>
-                        <Button 
-                            disabled={end >= books.length-1 ? true : false}
-                            component={Link} 
-                            to={`/books/${search}/${idx + 1}`}>
-                            <Icon>arrow_right</Icon>
-                        </Button>
+                            to='/'>BACK</Button>
+                        <div>
+                            <Button 
+                                disabled={idx === 1 ? true : false}
+                                component={Link} 
+                                to={`/books/${search}/${idx - 1}`}>
+                                <Icon>arrow_left</Icon>
+                            </Button>
+                            <Button 
+                                disabled={end >= books.length-1 ? true : false}
+                                component={Link} 
+                                to={`/books/${search}/${idx + 1}`}>
+                                <Icon>arrow_right</Icon>
+                            </Button>
+                        </div>
                     </div>
                     <GridList 
                         className='center-content pad-general'
