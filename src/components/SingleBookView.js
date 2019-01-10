@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 import { Dialog, Card, CardContent, CardMedia, Typography, Divider } from '@material-ui/core';
 
-class SingleBookView extends Component {
-    state={
-        open: this.props.open
+// material-ui css-in-js styles
+const styles = theme => ({
+    card: {
+        display: 'flex', 
+        width: 'auto'
+    },
+    cardContent: {
+        width: '50%', 
+        overflowWrap: 'break-word'
     }
+});
 
+class SingleBookView extends Component {
     render() {
-        const { book } = this.props;
-        const { open } = this.state;
+        const { book, open, classes } = this.props;
         return (
             <Dialog
                 open={open}>
                 <Card
-                    style={{ display: 'flex', width: 'auto' }}>
+                    className={classes.card}>
                     <CardMedia
                         component="img"
                         alt="book"
@@ -23,7 +32,7 @@ class SingleBookView extends Component {
                         title={book.title}
                     />
                     <CardContent
-                        style={{ width: '50%', overflowWrap: 'break-word' }}>
+                        className={classes.cardContent}>
                         <Typography variant='h6'><strong>Title:</strong> {book.title}</Typography>
                         <Divider />
                         <Typography variant='h6'><strong>Author:</strong> {book.author_name[0]}</Typography>
@@ -41,13 +50,16 @@ class SingleBookView extends Component {
     }
 }
 
+SingleBookView.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = ({ booksFound }, { idx, open }) => {
     const book = booksFound.titles[idx];
-    console.log('This is the book: ', book)
     return {
         book,
         open
     }
 }
 
-export default connect(mapStateToProps)(SingleBookView);
+export default connect(mapStateToProps)(withStyles(styles)(SingleBookView));
