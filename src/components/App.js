@@ -31,10 +31,6 @@ class App extends Component {
                             exact path="/books/:book?/:index?"
                             render={renderBooksByPage}
                         />
-                        {/*<Route 
-                            exact path="/profile/:book?"
-                            component={SingleBookView}
-                        />*/}
                     </div>
                 </Fragment>
             </Router>
