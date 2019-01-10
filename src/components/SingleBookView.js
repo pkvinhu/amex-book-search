@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Dialog, Card, CardContent, CardMedia, Typography, Divider } from '@material-ui/core';
+import { isNull } from 'util';
 
 // material-ui css-in-js styles
 const styles = theme => ({
@@ -35,11 +36,11 @@ class SingleBookView extends Component {
                         className={classes.cardContent}>
                         <Typography variant='h6'><strong>Title:</strong> {book.title}</Typography>
                         <Divider />
-                        <Typography variant='h6'><strong>Author:</strong> {book.author_name[0]}</Typography>
+                        <Typography variant='h6'><strong>Author:</strong> {book.author_name[0] || null}</Typography>
                         <Divider />
-                        <Typography variant='h6'><strong>Published Date:</strong> {book.publish_date[0]}</Typography>
+                        <Typography variant='h6'><strong>Published Date:</strong> {book.publish_date[0] || null}</Typography>
                         <Divider />
-                        <Typography variant='h6'><strong>Published Year:</strong> {book.publish_year[0]}</Typography>
+                        <Typography variant='h6'><strong>Published Year:</strong> {book.publish_year[0] || null}</Typography>
                         <Divider />
                         <Typography variant='h6'><strong>Publisher:</strong> {book.publisher.slice(0, 3 || book.publisher.length-1).join(', ')}</Typography>
                         <Divider />
