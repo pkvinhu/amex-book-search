@@ -33,7 +33,7 @@ class SearchBar extends Component {
     // handle form submission
     handleSubmit = (evt) => {
         evt.preventDefault();
-        const { _getBooksByTitle, history } = this.props;
+        const { _getBooks, history } = this.props;
         let { search, category } = this.state;
         
         // ternary operator revises search input to compatible params syntax
@@ -81,11 +81,11 @@ SearchBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (null, { history }) => ({ history })
+const mapStateToProps = (state, { history }) => ({ history })
 
 const mapDispatchToProps = dispatch => ({
         _getBooks: (search, category) => dispatch(_getBooks(search, category))
 })
 
 // wrap component in both redux-thunk mapping functions and material-ui withStyles
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(SideNav)));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withStyles(styles)(SearchBar)));

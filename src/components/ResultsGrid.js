@@ -7,7 +7,8 @@ import { Typography,
          GridList,
          GridListTile,
          GridListTileBar,
-         Icon } from '@material-ui/core';
+         Icon,
+         ClickAwayListener } from '@material-ui/core';
 import { connect } from 'react-redux';
 import SingleBookView from './SingleBookView';
 
@@ -25,7 +26,7 @@ const styles = theme => ({
 
 class ResultsGrid extends Component {
     state = {
-        selected: null,
+        selected: 0,
         open: false
     }
 
@@ -34,10 +35,14 @@ class ResultsGrid extends Component {
         this.setState({ selected: index, open: true })
     }
 
+    handleClickAway = () => {
+        this.setState({ open: false })
+    }
+
     render() {
         const { books, search, idx, classes } = this.props;
         const { selected } = this.state;
-        const { handleClickOpen } = this;
+        const { handleClickOpen, handleClickAway } = this;
         
         // pagination
         const limit = 9;
@@ -68,25 +73,28 @@ class ResultsGrid extends Component {
                         {books
                             .slice(start, end || books.length-1)
                             .map((each, i) => {
+                                console.log(each.isbn)
                             return (
                                 <GridListTile 
                                     className={classes.gridList} 
                                     key={i} 
-                                    cols={1}>
-                                    <img src={`http://covers.openlibrary.org/b/id/${each.cover_i}-S.jpg`} />
+                                    cols={1}
+                                    onClick={()=>handleClickOpen(i+((idx-1)*limit))}>
+                                    <img src={`http://covers.openlibrary.org/b/${`id/${each.cover_i}` || `goodreads/${each.id_goodreads}`}-L.jpg`} />
                                     <GridListTileBar 
                                         title={each.title}
                                         subtitle={each.author_name ? 
                                             `Written by ${each.author_name[0]}` : 
-                                            null}
-                                        index={i+(idx*limit)} 
-                                        onClick={()=>handleClickOpen(index)}
-                                    />
+                                            null}/>
                                 </GridListTile>
                             )
                         })}
                     </GridList>
-                    <SingleBookView open={this.state.open} idx={selected} />
+                    <ClickAwayListener onClickAway={handleClickAway}>
+                        <div>
+                        {this.state.open ? <SingleBookView open={this.state.open} idx={selected} /> : null}
+                        </div>
+                    </ClickAwayListener>
                 </div>
                 }
             </div>

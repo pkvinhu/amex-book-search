@@ -21,11 +21,6 @@
     border: 3px solid #567D9C;
 }
 
-.paginate {
-    display: flex;
-    justify-content: flex-end;
-}
-
 .center-content {
     justify-content: center;
     align-self: center;
@@ -66,12 +61,21 @@ img {
     margin: 5%;
 }
 
+.pad-bottom {
+    padding-bottom: 5%;
+}
+
 .pad-general {
     padding: 5% 5% 0% 5%;
 }
 
 .pad-top {
     padding-top: 2%;
+}
+
+.paginate {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .space-btw {

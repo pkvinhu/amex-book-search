@@ -21,7 +21,7 @@ BOOKHOUR will use integration of:
 [X] By All
 [X] Card Grid Results
 [X] Pagination
-[ ] Single Book Profile
+[X] Single Book Profile
 [ ] Deploy to Heroku
 [ ] Xtra - Testing w/ Jest
 [ ] Xtra - Add Auth for user account

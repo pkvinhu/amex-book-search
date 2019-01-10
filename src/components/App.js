@@ -23,7 +23,7 @@ class App extends Component {
             <Router>
                 <Fragment>
                     <Header />
-                    <div className='center-content landing pad-top'>
+                    <div className='center-content landing pad-general pad-bottom'>
                         <SearchBar history={history}/>
                         {!books.length &&
                         <LandingSection />}
